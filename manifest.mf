@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+AutoUpdate-Show-In-Client: true
+OpenIDE-Module: org.netbeans.lutece/0
+OpenIDE-Module-Layer: org/netbeans/lutece/layer.xml
+OpenIDE-Module-Localizing-Bundle: org/netbeans/lutece/Bundle.properties
+OpenIDE-Module-Implementation-Version: 1
+
