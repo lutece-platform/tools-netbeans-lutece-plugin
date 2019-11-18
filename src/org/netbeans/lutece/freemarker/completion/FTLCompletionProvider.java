@@ -165,9 +165,9 @@ public class FTLCompletionProvider implements CompletionProvider
                         }
                     }
                 }
-                catch (Exception ex)
+                catch (ClassNotFoundException | SecurityException ex)
                 {
-                    //ex.printStackTrace();
+                    ex.printStackTrace();
                 }
                 // directives
                 if (currentLine.matches(".*(<|\\[)#\\w*"))
@@ -196,7 +196,7 @@ public class FTLCompletionProvider implements CompletionProvider
                             names.add(name);
                         }
                     }
-                    addBuiltInLuteceMacros(names);
+                    LuteceMacros.setBuildInLuteceMacros(names);
                     pattern = Pattern.compile("(<|\\[)#import\\s.+\\sas\\s+(\\w+)");
                     matcher = pattern.matcher(text);
                     while (matcher.find())
@@ -356,12 +356,5 @@ public class FTLCompletionProvider implements CompletionProvider
         return -1;
     }
 
-    private void addBuiltInLuteceMacros(Set<String> names)
-    {
-        names.add("row");
-        names.add("box");
-        names.add("table");
-        names.add("tForm");
-    }
  
 }

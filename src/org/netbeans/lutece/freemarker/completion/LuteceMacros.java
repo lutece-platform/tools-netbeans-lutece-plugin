@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2019, Mairie de Paris
+ * Copyright (c) 2002-2016, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -31,39 +31,37 @@
  *
  * License 1.0
  */
+
 package org.netbeans.lutece.freemarker.completion;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Properties;
-import javax.swing.Action;
-import org.netbeans.spi.editor.completion.CompletionDocumentation;
+import java.util.Set;
 
 /**
- * LuteceMacrosCompletionDocumentation
+ * LuteceMacros
  */
-public class LuteceMacrosCompletionDocumentation implements CompletionDocumentation
+public class LuteceMacros 
 {
-
-    private String _strText;
-    private Map<String, String> _mapDoc;
-
-    public LuteceMacrosCompletionDocumentation(String strMacroName)
+    public static final String PATH_MACROS_PROPERTIES = "/org/netbeans/lutece/freemarker/completion/lutece_macros.properties";
+    private static List<String> _listMacros;
+    
+    public static synchronized void setBuildInLuteceMacros( Set<String> names )
     {
-        if (_mapDoc == null)
+        if( _listMacros == null )
         {
-            _mapDoc = new HashMap<>();
-            try (InputStream input = LuteceMacrosCompletionDocumentation.class.getResourceAsStream( LuteceMacros.PATH_MACROS_PROPERTIES))
+            _listMacros = new ArrayList<>();
+            try (InputStream input = LuteceMacrosCompletionDocumentation.class.getResourceAsStream( PATH_MACROS_PROPERTIES))
             {
                 Properties prop = new Properties();
                 prop.load(input);
-                for( Entry entry : prop.entrySet())
+                for( Map.Entry entry : prop.entrySet())
                 {
-                    _mapDoc.put( (String) entry.getKey(), (String) entry.getValue() );
+                    _listMacros.add( (String) entry.getKey() );
                 }
             }
             catch (IOException ex)
@@ -71,31 +69,13 @@ public class LuteceMacrosCompletionDocumentation implements CompletionDocumentat
                 ex.printStackTrace();
             }
         }
-        _strText = _mapDoc.get(strMacroName);
+        
+        for( String macro : _listMacros )
+        {
+            names.add(macro);
+        }
+        
     }
-
-    @Override
-    public String getText()
-    {
-        return _strText;
-    }
-
-    @Override
-    public URL getURL()
-    {
-        return null;
-    }
-
-    @Override
-    public CompletionDocumentation resolveLink(String arg0)
-    {
-        return null;
-    }
-
-    @Override
-    public Action getGotoSourceAction()
-    {
-        return null;
-    }
+    
 
 }
