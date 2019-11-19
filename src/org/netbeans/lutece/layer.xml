@@ -4,7 +4,7 @@
     <folder name="Editors">
         <folder name="text">
             <folder name="x-ftl">
-                <attr name="displayName" bundlevalue="org.netbeans.lutece.Bundle#Editors/text/x-ftl"/>
+                <attr name="displayName" bundlevalue="org.netbeans.lutece.freemarker.Bundle#Editors/text/x-ftl"/>
                 <folder name="FontsColors">
                     <folder name="NetBeans">
                         <folder name="Defaults">
